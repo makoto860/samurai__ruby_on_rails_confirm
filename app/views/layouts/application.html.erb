@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Rs</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <% if flash[:notice] %>
+      <p class="notice"><%= flash[:notice] %></p>
+      <p class="alert"><%= flash[:alert] %></p>
+    <% end %>
+    <p><%= link_to "サインアップ", :new_user_registration %></p>
+    <p><%= link_to "ログイン", :new_user_session %></p>
+    <p><%= link_to 'ログアウト', destroy_user_session_path, data: { turbo_method: :delete, turbo_confirm: "ログアウトしますか？" } %></p>
+    <p><%= link_to "ホーム", :root %></p>
+    <%= yield %>
+  </body>
+</html>

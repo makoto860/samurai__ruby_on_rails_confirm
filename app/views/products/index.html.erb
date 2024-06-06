@@ -1,0 +1,27 @@
+<h1>Products#index</h1>
+<p>Find me in app/views/products/index.html.erb</p>
+<h3>製品情報一覧</h3>
+<table>
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>名前</th>
+      <th>参照</th>
+      <th>編集</th>
+      <th>削除</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @products.each do |product| %>
+      <tr>
+        <td><%= product.id %></td>
+        <td><%= product.name %></td>
+        <td><%= link_to "参照", product %></td>
+        <td><%= link_to "編集", [:edit, product] %></td>
+        <td><%= link_to '削除', products_path, data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<p><%= link_to "製品新規登録", :new_product %></p>
+<p><%= link_to "予約一覧", :reservations_index %></p>
