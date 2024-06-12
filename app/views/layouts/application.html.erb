@@ -16,7 +16,7 @@
       <p class="alert"><%= flash[:alert] %></p>
     <% end %>
     <p><%= link_to "サインアップ", :new_user_registration %></p>
-    <p><%= link_to "ログイン", :new_user_session %></p>
+    <p><%= link_to "サインイン", :new_user_session %></p>
     <p><%= link_to 'ログアウト', destroy_user_session_path, data: { turbo_method: :delete, turbo_confirm: "ログアウトしますか？" } %></p>
     <p><%= link_to "ホーム", :root %></p>
     <%= yield %>

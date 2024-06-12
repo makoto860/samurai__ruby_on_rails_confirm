@@ -43,7 +43,4 @@ class ProductsController < ApplicationController
     flash[:notice] = "製品を削除しました"
     redirect_to :products
   end
-
-  def own
-  end
 end

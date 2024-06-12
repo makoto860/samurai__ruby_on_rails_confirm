@@ -3,33 +3,21 @@ class ReservationsController < ApplicationController
     @reservations = current_user.reservations.all
   end
 
-  def comfirm
-    @reservation = Reservation.new(params.permit(:quantity, :product_id, :user_id))
-    @reservation = Reservation.find(params[:product_id])
-    
-    @user = User.find(current_user.id)
-    @user_id = current_user.id
-  end
-
-  def new
+  def confirm
+    @reservation = Reservation.new(reservation_params)
+    @reservation = Reservation.find_by(params[:product_id])
+    @user = current_user
   end
 
   def create
     product = Product.find(params[:product_id])
     reservation = product.reservations_new
     reservation.save_reservation(reservation, reservation_params)
-    redirect_to :reservations_comfirm
-  end
-
-  def show
-  end
-
-  def edit
+    redirect_to :confirm_reservations
   end
 
   private
     def reservation_params
-      params.require(:reservation).permit(:quantity).
-             merge(user_id: current_user.id, product_id: params[:product_id])
+      params.require(:reservation).permit(:quantity, :product_id, :user_id)
     end
 end

@@ -3,7 +3,7 @@
 <h3>製品詳細</h3>
 <table>
   <tr>
-    <th>名前</th>
+    <th>商品の名前</th>
     <td><%= @product.name %></td>
   </tr>
 </table>
@@ -14,7 +14,7 @@
 </div>
 
 <div class="row">
-  <p>数</p>
+  <p>予約する数</p>
   <% @reservations.each do |reservation| %>
     <div class="offset-md-5 col-md-5">
       <p class="h3"><%= reservation.quantity %></p>
@@ -25,10 +25,17 @@
 <% if user_signed_in? %>
   <div class="row">
     <div class="offset-md-5 col-md-5">
-      <%= form_with model: @reservation, url: product_reservations_path(@product) do |f| %>
+      <%= form_with(model: @reservation, url: confirm_reservations_path(@product), local: true) do |f| %>
         <%= f.number_field :quantity, class: "form-control m-2" %>
-        <%= f.submit "予約を追加する" , class:"btn samuraimart-submit-button ml-2"%>
+        <%= f.submit "予約を追加する", class:"btn samuraimart-submit-button ml-2"%>
       <% end %>
     </div>
   </div>
+<% end %>
+
+<%= form_with url: confirm_reservations_path, method: :post do |f| %>
+  <%= f.hidden_field :product_id, value: @product.id %>
+  <%= f.hidden_field :user_id, value: current_user.id %>
+  <%= f.number_field :quantity, value: 1 %> 
+  <%= f.submit "確認画面へ" %>
 <% end %>

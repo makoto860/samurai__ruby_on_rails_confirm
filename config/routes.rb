@@ -1,16 +1,15 @@
 Rails.application.routes.draw do
   get 'reservations/index'
-  get 'reservations/comfirm'
-  get 'reservations/new'
-  get 'reservations/show'
-  get 'reservations/edit'
+  get 'reservations/confirm'
   devise_for :users
-  get 'products/own'
   get 'tops/home'
-
-  resources :products do
-    resources :reservations, only: [:create, :index, :new, :confirm, :show, :edit, :destroy]
+  resources :products
+  resources :reservations, only: [:create, :confirm, :index] do
+    collection do
+      post :confirm
+    end
   end
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
